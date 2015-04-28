@@ -51,7 +51,7 @@ theme10="/papyrus-sticker-blue"
 theme10source=$basedir$theme10
 theme11="/papyrus-sticker-green"
 theme11source=$basedir$theme11
-theme12="/sticker-red"
+theme12="/papyrus-sticker-red"
 theme12source=$basedir$theme12
 
 existingKawaiki="~/.icons/Kawaiki-Only"
