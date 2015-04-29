@@ -54,30 +54,42 @@ theme11source=$basedir$theme11
 theme12="/papyrus-sticker-red"
 theme12source=$basedir$theme12
 
-existingKawaiki="~/.icons/Kawaiki-Only"
+userIcons=".icons"
+existingKawaiki=".icons/Kawaiki-Only"
 exisitingKawaikiRoot="/usr/share/icons/Kawaiki-Only"
 
 # copy files, depending on user-rights
 
 if [ "$UID" -ne "$ROOT_UID" ]
 then
-    mkdir ~/.icons
-    if [ ! -d "$existingKawaiki" ]; then
-    cp -r $theme1source ~/.icons/
+    if [ -d "$HOME/$userIcons" ]
+        then
+	        echo "$HOME/$userIcons directory exists!"
+        else
+	        echo "$HOME/$userIcons directory not found! Creating it."
+            mkdir -p "$HOME/$userIcons"
     fi
-    cp -r $theme2source ~/.icons/
-    cp -r $theme3source ~/.icons/
-    cp -r $theme4source ~/.icons/
-    cp -r $theme5source ~/.icons/
-    cp -r $theme6source ~/.icons/
-    cp -r $theme7source ~/.icons/
-    cp -r $theme8source ~/.icons/
-    cp -r $theme9source ~/.icons/
-    cp -r $theme10source ~/.icons/
-    cp -r $theme11source ~/.icons/
-    cp -r $theme12source ~/.icons/
+
+    if [ -d "$HOME/$existingKawaiki" ]
+        then
+        echo "Found Kawaiki Icon Theme"
+        else
+        echo "Kawaiki Icon theme not found, installing essential icons."
+        cp -r $theme1source $HOME/.icons/
+    fi
+    cp -r $theme2source $HOME/.icons/
+    cp -r $theme3source $HOME/.icons/
+    cp -r $theme4source $HOME/.icons/
+    cp -r $theme5source $HOME/.icons/
+    cp -r $theme6source $HOME/.icons/
+    cp -r $theme7source $HOME/.icons/
+    cp -r $theme8source $HOME/.icons/
+    cp -r $theme9source $HOME/.icons/
+    cp -r $theme10source $HOME/.icons/
+    cp -r $theme11source $HOME/.icons/
+    cp -r $theme12source $HOME/.icons/
 else
-    mkdir /usr/share/icons
+    mkdir -p /usr/share/icons
     if [ ! -d "$existingKawaikiRoot" ]; then
     cp -r $theme1source /usr/share/icons/
     fi
@@ -94,8 +106,8 @@ else
     cp -r $theme12source /usr/share/icons/
 fi
 
-if [ ! -d "$existingKawaiki" ]; then
-if [ ! -d "$existingKawaikiRoot" ]; then
+if [ ! -d "$HOME/$existingKawaiki" ] && [ ! -d "$existingKawaikiRoot" ]
+then
 
 # Copy XFCE specific icons
 echo "Are you using XFCE? If using XFCE please type y,"
@@ -108,9 +120,9 @@ if [ "$xfce" == "y" ]
   then
     if [ "$UID" -ne "$ROOT_UID" ]
       then
-      cp -r $statuspath ~/.icons/Kawaiki-Only/
+      cp -r $statuspath $HOME/.icons/Kawaiki-Only/
     else
-      mkdir /usr/share/icons
+      mkdir -p /usr/share/icons
       cp -r $statuspath /usr/share/icons/Kawaiki-Only/
     fi
 fi
@@ -141,9 +153,9 @@ themeindexsrc=$basedir$themeindex
 
 if [ "$UID" -ne "$ROOT_UID" ]
 then
-    cp $themeindexsrc ~/.icons/Kawaiki-Only/
+    cp $themeindexsrc $HOME/.icons/Kawaiki-Only/
 else
-    mkdir /usr/share/icons
+    mkdir -p /usr/share/icons
     cp $themeindexsrc /usr/share/icons/Kawaiki-Only/
 fi
 
@@ -172,13 +184,12 @@ brightnesssrc=$basedir$brightness
 
 if [ "$UID" -ne "$ROOT_UID" ]
 then
-    cp -r $brightnesssrc ~/.icons/Kawaiki-Only/
+    cp -r $brightnesssrc $HOME/.icons/Kawaiki-Only/
 else
-    mkdir /usr/share/icons
+    mkdir -p /usr/share/icons
     cp -r $brightnesssrc /usr/share/icons/Kawaiki-Only/
 fi
 
-fi
 fi
 
 
