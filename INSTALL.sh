@@ -57,6 +57,7 @@ theme12source=$basedir$theme12
 userIcons=".icons"
 existingKawaiki=".icons/Kawaiki-Only"
 exisitingKawaikiRoot="/usr/share/icons/Kawaiki-Only"
+kawExists=false
 
 # copy files, depending on user-rights
 
@@ -73,6 +74,7 @@ then
     if [ -d "$HOME/$existingKawaiki" ]
         then
         echo "Found Kawaiki Icon Theme"
+        kawExists=true
         else
         echo "Kawaiki Icon theme not found, installing essential icons."
         cp -r $theme1source $HOME/.icons/
@@ -90,8 +92,13 @@ then
     cp -r $theme12source $HOME/.icons/
 else
     mkdir -p /usr/share/icons
-    if [ ! -d "$existingKawaikiRoot" ]; then
-    cp -r $theme1source /usr/share/icons/
+    if [ -d "$existingKawaikiRoot" ]
+        then
+        echo "Found Kawaiki Icon Theme"
+        kawExists=true
+        else
+        echo "Kawaiki Icon theme not found, installing essential icons."
+        cp -r $theme1source /usr/share/icons/
     fi
     cp -r $theme2source /usr/share/icons/
     cp -r $theme3source /usr/share/icons/
@@ -106,7 +113,7 @@ else
     cp -r $theme12source /usr/share/icons/
 fi
 
-if [ ! -d "$HOME/$existingKawaiki" ] && [ ! -d "$existingKawaikiRoot" ]
+if [ $kawExists == false ]
 then
 
 # Copy XFCE specific icons
